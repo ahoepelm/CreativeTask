@@ -51,6 +51,23 @@ struct ContentView: View {
             }
             CurrDateView().offset(x: -100, y: -60).padding(.bottom, -90)
             
+            Text("8")
+                .font(.system(size:60))
+                .fontWeight(.bold)
+                .padding(.horizontal)
+                .minimumScaleFactor(0.5)
+                .foregroundColor(.blue)
+                .offset(x: +95, y: -60).padding(.bottom, -80)
+            
+            RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray)
+                        .frame(width: 65, height: 30)
+                        .offset(x: +95, y: +20).padding(.bottom, -90)
+                .overlay(Text("Tasks")
+                            .offset(x: +95, y: +34)
+                )
+            
+
         }
         .padding(.bottom)
         
