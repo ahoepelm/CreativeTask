@@ -13,6 +13,7 @@
 		80E5C5A7254B0B0A00AA4AA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80E5C5A6254B0B0A00AA4AA8 /* Preview Assets.xcassets */; };
 		80E5C5A9254B0B0A00AA4AA8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C5A8254B0B0A00AA4AA8 /* Persistence.swift */; };
 		80E5C5AC254B0B0A00AA4AA8 /* CreativeTask.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C5AA254B0B0A00AA4AA8 /* CreativeTask.xcdatamodeld */; };
+		80E5C5B5254B2ADC00AA4AA8 /* CurrDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C5B4254B2ADC00AA4AA8 /* CurrDateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		80E5C5A8254B0B0A00AA4AA8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		80E5C5AB254B0B0A00AA4AA8 /* CreativeTask.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CreativeTask.xcdatamodel; sourceTree = "<group>"; };
 		80E5C5AD254B0B0A00AA4AA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80E5C5B4254B2ADC00AA4AA8 /* CurrDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrDateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				80E5C59F254B0B0700AA4AA8 /* CreativeTaskApp.swift */,
 				80E5C5A1254B0B0700AA4AA8 /* ContentView.swift */,
+				80E5C5B4254B2ADC00AA4AA8 /* CurrDateView.swift */,
 				80E5C5A3254B0B0A00AA4AA8 /* Assets.xcassets */,
 				80E5C5A8254B0B0A00AA4AA8 /* Persistence.swift */,
 				80E5C5AD254B0B0A00AA4AA8 /* Info.plist */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E5C5B5254B2ADC00AA4AA8 /* CurrDateView.swift in Sources */,
 				80E5C5A9254B0B0A00AA4AA8 /* Persistence.swift in Sources */,
 				80E5C5A2254B0B0700AA4AA8 /* ContentView.swift in Sources */,
 				80E5C5A0254B0B0700AA4AA8 /* CreativeTaskApp.swift in Sources */,
