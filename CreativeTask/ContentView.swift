@@ -10,6 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @State private var selection = 0
+    @State var showingAddTask = false
     
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -90,35 +91,37 @@ struct ContentView: View {
                     }
                     
                 }
-                Spacer()
-            }
+                
+                Button(action: {
+                           self.showingAddTask.toggle()
+                       }) {
+                           Text("Add Task")
+                       }.sheet(isPresented: $showingAddTask) {
+                           AddTaskView()
+                        Button("Cancel") {
+                            // Toggle the preview display off again.
+                            // Swiping down (the system gesture to dismiss a sheet)
+                            // will cause SwiftUI to toggle our state property as well.
+                            self.showingAddTask.toggle()
+                        }
+                        
+                       }
+                
+                }
+            
             .padding([.top, .leading])
             
             TabView(selection: $selection) {
-            
+                
                 if selection == 0 {
-                PendingTaskView()
+                    PendingTaskView()
                 } else {
                     CompletedTaskView()
                 }
-            
+                
             }
             .padding(.top)
                     
-//            ZStack(alignment: .bottom) {
-//
-//                Button("next") {
-//                    withAnimation {
-//                        selection = 1
-//                    }
-//                }
-//
-//                       TabView(selection: $selection) {
-//                           Text("Hello").tag(0)
-//                           Text("World").tag(1)
-//                       }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-//
-//                   }
         } //vstack
         
 
