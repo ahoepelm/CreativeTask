@@ -14,6 +14,7 @@ struct PendingTaskView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
         animation: .default)
     private var tasks: FetchedResults<Task>
+    @State private var selection: Set<Task> = []
 
     var body: some View {
         
@@ -21,12 +22,23 @@ struct PendingTaskView: View {
             
             ForEach(tasks) { task in
 //                Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
-                TaskRowView(task: task)
+                //TaskRowView(task: task)
+                TaskRowView(task: task, isExpanded: self.selection.contains(task))
+                    .onTapGesture { self.selectDeselect(task) }
+                    .animation(.linear(duration: 0.3))
             }
             //.onDelete(perform: deleteItems)
         }
         
         .padding([.top, .leading, .trailing])
+    }
+    
+    private func selectDeselect(_ task: Task) {
+        if selection.contains(task) {
+            selection.remove(task)
+        } else {
+            selection.insert(task)
+        }
     }
     
 }
