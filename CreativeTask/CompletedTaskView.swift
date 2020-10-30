@@ -8,24 +8,47 @@
 import SwiftUI
 
 struct CompletedTaskView: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
+        predicate: NSPredicate(format: "completed != %@", "true"),
+        animation: .default)
+    private var tasks: FetchedResults<Task>
+    @State private var selection: Set<Task> = []
+
     var body: some View {
-        //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         
         List {
             
-            Text("Two")
-            Text("Two")
-            Text("Two")
-            Text("Two")
-            Text("Two")
-            Text("Two")
-            Text("Two")
-            
+            ForEach(tasks) { task in
+//                Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
+                //TaskRowView(task: task)
+                TaskRowView(task: task, isExpanded: self.selection.contains(task))
+                    .onTapGesture { self.selectDeselect(task) }
+                    .animation(.linear(duration: 0.3))
+            }
+            //.onDelete(perform: deleteItems)
         }
-        .padding([.top, .leading, .trailing])
         
+        .padding([.top, .leading, .trailing])
     }
+    
+    private func selectDeselect(_ task: Task) {
+        if selection.contains(task) {
+            selection.remove(task)
+        } else {
+            selection.insert(task)
+        }
+    }
+
 }
+
+private let taskDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM dd, HH:MM a"
+    return formatter
+}()
 
 struct CompletedTaskView_Previews: PreviewProvider {
     static var previews: some View {

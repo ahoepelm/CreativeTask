@@ -81,6 +81,15 @@ struct AddTaskView: View {
                         )
                 }
                 
+                Button(action: {
+                    self.completed = true
+                }) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "checkmark.square")
+                        Text("Completed")
+                    }
+                }
+                
                 
             }
             
@@ -128,7 +137,7 @@ struct AddTaskView: View {
             newTask.name = name
             newTask.id = UUID()
             newTask.date = date
-            newTask.completed = false
+            newTask.completed = completed
             
             switch priority {
             
