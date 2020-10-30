@@ -9,45 +9,33 @@ import SwiftUI
 
 struct PendingTaskView: View {
     
-    var listItems = ["One", "Two", "Three", "Four", "Five"]
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
+        animation: .default)
+    private var tasks: FetchedResults<Task>
+
     var body: some View {
-        //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         
         List {
             
-            Text("One")
-            Text("One")
-            Text("One")
-            Text("One")
-            Text("One")
-            Text("One")
-            Text("One")
-            
+            ForEach(tasks) { task in
+//                Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
+                TaskRowView(task: task)
+            }
+            //.onDelete(perform: deleteItems)
         }
+        
         .padding([.top, .leading, .trailing])
     }
-        
-//        RoundedRectangle(cornerRadius: 25, style: .continuous)
-//            .fill(Color.white)
-//            .frame(width: 300, height: 500)
-//            .shadow(color: .gray, radius: 3)
-//            .padding(.leading)
-//            .padding(.trailing)
-//            .overlay(List {
-//
-//                Text("One")
-//                Text("One")
-//                Text("One")
-//                Text("One")
-//                Text("One")
-//                Text("One")
-//                Text("One")
-//
-//                })
-//
-//
-//    }
+    
 }
+
+private let taskDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM dd, HH:MM a"
+    return formatter
+}()
 
 struct PendingTaskView_Previews: PreviewProvider {
     static var previews: some View {

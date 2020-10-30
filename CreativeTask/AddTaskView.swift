@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddTaskView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var dateFormatter: DateFormatter {
@@ -93,9 +94,9 @@ struct AddTaskView: View {
             HStack {
                 Button(action: {
                     
-                    print("Save pressed")
                     print("Values are: \(name) \(dateFormatter.string(from: date)) \(priority)")
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.addTask()
+
                 }) {
                     Text("Save")
                         .fontWeight(.bold)
@@ -116,6 +117,43 @@ struct AddTaskView: View {
 
         }
         
+    }
+
+    
+    // MARK: - Custom Mehtods
+    
+    private func addTask() {
+        withAnimation {
+            let newTask = Task(context: viewContext)
+            newTask.name = name
+            newTask.id = UUID()
+            newTask.date = date
+            newTask.completed = false
+            
+            switch priority {
+            
+            case .low:
+                newTask.priority = "low"
+            case .medium:
+                newTask.priority = "medium"
+            case .high:
+                newTask.priority = "high"
+            default:
+                newTask.priority = "none"
+            }
+            
+            
+            do {
+                try viewContext.save()
+                self.presentationMode.wrappedValue.dismiss()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                print("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 
 

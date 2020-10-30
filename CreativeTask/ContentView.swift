@@ -15,9 +15,9 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<Task>
     
     var body: some View {
         //        List {
@@ -55,7 +55,7 @@ struct ContentView: View {
                 }
                 CurrDateView().offset(x: -100, y: -60).padding(.bottom, -90)
                 
-                Text("8")
+                Text("\(items.count)")
                     .font(.system(size:60))
                     .fontWeight(.bold)
                     .padding(.horizontal)
