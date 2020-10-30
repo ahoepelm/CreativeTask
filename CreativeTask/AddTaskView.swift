@@ -94,7 +94,7 @@ struct AddTaskView: View {
             HStack {
                 Button(action: {
                     
-                    print("Values are: \(name) \(dateFormatter.string(from: date)) \(priority)")
+                    //print("Values are: \(name) \(dateFormatter.string(from: date)) \(priority)")
                     self.addTask()
 
                 }) {
