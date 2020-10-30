@@ -21,14 +21,18 @@ struct CompletedTaskView: View {
         
         List {
             
-            ForEach(tasks) { task in
-//                Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
-                //TaskRowView(task: task)
-                TaskRowView(task: task, isExpanded: self.selection.contains(task))
-                    .onTapGesture { self.selectDeselect(task) }
-                    .animation(.linear(duration: 0.3))
+            Section(header: Text("Completed Tasks")) {
+                ForEach(tasks) { task in
+                    
+                    // Leaving this here since the expand method isn't taking button taps
+                    //                Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
+                    //TaskRowView(task: task)
+                    TaskRowView(task: task, isExpanded: self.selection.contains(task))
+                        .onTapGesture { self.selectDeselect(task) }
+                        .animation(.linear(duration: 0.3))
+                }
+                .onDelete(perform: deleteItems)
             }
-            .onDelete(perform: deleteItems)
         }
         
         .padding([.top, .leading, .trailing])

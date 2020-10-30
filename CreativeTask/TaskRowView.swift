@@ -17,15 +17,6 @@ struct TaskRowView: View {
     var body: some View {
         
         HStack {
-            //            Button(action: {
-            //                print("Button action")
-            //            }) {
-            //                HStack {
-            //                    Image(systemName: "square")
-            //                    //Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
-            //                }
-            //            }
-            //                  Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
             
             content
             Spacer()
@@ -92,6 +83,7 @@ struct TaskRowView: View {
                     } //HStack
                     
                 }
+                .padding(.top)
                 
             }
         }
