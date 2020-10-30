@@ -12,7 +12,8 @@ struct CompletedTaskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
-        predicate: NSPredicate(format: "completed != %@", "true"),
+        //predicate: NSPredicate(format: "completed != %@", "true"),
+        predicate: NSPredicate(format: "completed == true"),
         animation: .default)
     private var tasks: FetchedResults<Task>
     @State private var selection: Set<Task> = []
