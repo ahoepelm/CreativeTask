@@ -25,7 +25,7 @@ struct TaskRowView: View {
     
     private var content: some View {
         VStack(alignment: .leading) {
-            Text("\(task.name ?? "None") \(task.date ?? Date(), formatter: taskDateFormatter)")
+            Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
             
             if isExpanded {
                 
@@ -94,12 +94,12 @@ struct TaskRowView: View {
 
 private let taskDateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "MMM dd, HH:MM a"
+    formatter.dateFormat = "MMM dd yyyy"
     return formatter
 }()
 
 //struct TaskRowView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        TaskRowView(task: task)
+//        TaskRowView(task: <#Task#>, isExpanded: <#Bool#>)
 //    }
 //}

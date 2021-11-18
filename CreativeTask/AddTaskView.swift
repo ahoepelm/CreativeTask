@@ -8,22 +8,19 @@
 import SwiftUI
 
 struct AddTaskView: View {
-    
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.dateFormat = "eeee MMM d yyyy hh:mm a"
+        formatter.dateStyle = .short
+        formatter.dateFormat = "eeee MMM d yyyy"
         return formatter
     }
+    
     @State private var name = ""
     @State private var date = Date()
     @State private var completed = false
     @State private var priority = taskPriority.none
-    
-    
+        
     var body: some View {
 
         VStack {
@@ -92,9 +89,8 @@ struct AddTaskView: View {
                 
                 
             }
-            
-            
-            DatePicker(selection: $date, in: Date()..., displayedComponents:  [.date, .hourAndMinute]) {
+                        
+            DatePicker(selection: $date, in: Date()..., displayedComponents:  [.date]) {
                             Text("Due date")
             }
             .padding(.all)
@@ -102,9 +98,9 @@ struct AddTaskView: View {
             
             HStack {
                 Button(action: {
-                    
-                    //print("Values are: \(name) \(dateFormatter.string(from: date)) \(priority)")
-                    self.addTask()
+
+                    let addTaskViewModel = AddTaskViewModel(taskName: name, taskDate: date, taskCompleted: completed, taskPriority: priority)
+                    addTaskViewModel.addTask()
 
                 }) {
                     Text("Save")
@@ -127,46 +123,6 @@ struct AddTaskView: View {
         }
         
     }
-
-    
-    // MARK: - Custom Mehtods
-    
-    private func addTask() {
-        withAnimation {
-            let newTask = Task(context: viewContext)
-            newTask.name = name
-            newTask.id = UUID()
-            newTask.date = date
-            newTask.completed = completed
-            
-            switch priority {
-            
-            case .low:
-                newTask.priority = "low"
-            case .medium:
-                newTask.priority = "medium"
-            case .high:
-                newTask.priority = "high"
-            default:
-                newTask.priority = "none"
-            }
-            
-            
-            do {
-                try viewContext.save()
-                self.presentationMode.wrappedValue.dismiss()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-
-
 }
 
 struct AddTaskView_Previews: PreviewProvider {

@@ -31,7 +31,6 @@ struct CurrDateView: View {
         var currDay : String
         dateFormatter.dateFormat = "eeee"
         currDay = dateFormatter.string(from: today)
-
         
         return currDay
         
