@@ -11,7 +11,7 @@ struct PendingTaskView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: true)],
         predicate: NSPredicate(format: "completed != true"),
         animation: .default)
     private var tasks: FetchedResults<Task>

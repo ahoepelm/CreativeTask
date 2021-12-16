@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 0
-    @State var showingAddTask = false
-    
+
+    @State private var showingAddTask = false
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
@@ -61,21 +60,7 @@ struct ContentView: View {
             .padding(.top)
 
            
-            HStack(alignment: .top) {
-                
-                Button("Pending") {
-                    withAnimation {
-                        selection = 0
-                    }
-                }
-            
-                
-                Button("Completed") {
-                    withAnimation {
-                        selection = 1
-                    }
-                    
-                }
+            HStack(alignment: .top) {                
                 
                 Button(action: {
                            self.showingAddTask.toggle()
@@ -95,15 +80,18 @@ struct ContentView: View {
                 }
             
             .padding([.top, .leading])
-            
-            TabView(selection: $selection) {
-                
-                if selection == 0 {
-                    PendingTaskView()
-                } else {
-                    CompletedTaskView()
+
+            TabView {
+                PendingTaskView()
+                .tabItem {
+                  Label("Pending", systemImage: "square")
                 }
-                
+              
+                CompletedTaskView()
+                .tabItem {
+                  Label("Completed", systemImage: "checkmark.square")
+                }
+
             }
             .padding(.top)
                     

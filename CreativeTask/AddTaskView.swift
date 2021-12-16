@@ -20,6 +20,11 @@ struct AddTaskView: View {
     @State private var date = Date()
     @State private var completed = false
     @State private var priority = taskPriority.none
+    @State private var lowPriorityBtnTapped = false
+    @State private var mediumPriorityBtnTapped = false
+    @State private var highPriorityBtnTapped = false
+    @State private var completedBtnTapped = false
+    @Environment(\.presentationMode) var presentationMode
         
     var body: some View {
 
@@ -38,53 +43,64 @@ struct AddTaskView: View {
                 
                 Button(action: {
                     self.priority = taskPriority.low
+                    self.lowPriorityBtnTapped.toggle()
+                    self.mediumPriorityBtnTapped = false
+                    self.highPriorityBtnTapped = false
                 }) {
                     Text("Low")
                         .fontWeight(.bold)
                         .font(.system(size: 15))
                         .foregroundColor(.green)
                         .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.green, lineWidth: 5)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(lowPriorityBtnTapped ? Color.green : Color.gray, lineWidth: 5)
                         )
                 }
                 
                 Button(action: {
                     self.priority = taskPriority.medium
+                    self.lowPriorityBtnTapped = false
+                    self.mediumPriorityBtnTapped.toggle()
+                    self.highPriorityBtnTapped = false
                 }) {
                     Text("Medium")
                         .fontWeight(.bold)
                         .font(.system(size: 15))
                         .foregroundColor(.orange)
                         .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.orange, lineWidth: 5)
+                        .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(mediumPriorityBtnTapped ? Color.orange : Color.gray, lineWidth: 5)
                         )
                 }
                 
                 Button(action: {
                     self.priority = taskPriority.high
+                    self.lowPriorityBtnTapped = false
+                    self.mediumPriorityBtnTapped = false
+                    self.highPriorityBtnTapped.toggle()
                 }) {
                     Text("High")
                         .fontWeight(.bold)
                         .font(.system(size: 15))
                         .foregroundColor(.red)
                         .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.red, lineWidth: 5)
+                        .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(highPriorityBtnTapped ? Color.red : Color.gray, lineWidth: 5)
                         )
                 }
                 
                 Button(action: {
                     self.completed = true
+                    self.completedBtnTapped.toggle()
                 }) {
-                    HStack(spacing: 10) {
-                        Image(systemName: "checkmark.square")
-                        Text("Completed")
-                    }
+                    Text("Completed")
+                        .fontWeight(.bold)
+                        .font(.system(size: 15))
+                        .foregroundColor(.blue)
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(completedBtnTapped ? Color.blue : Color.gray, lineWidth: 5)
+                        )
                 }
                 
                 
@@ -101,6 +117,7 @@ struct AddTaskView: View {
 
                     let addTaskViewModel = AddTaskViewModel(taskName: name, taskDate: date, taskCompleted: completed, taskPriority: priority)
                     addTaskViewModel.addTask()
+                    presentationMode.wrappedValue.dismiss()
 
                 }) {
                     Text("Save")
@@ -108,9 +125,8 @@ struct AddTaskView: View {
                         .font(.system(size: 15))
                         .foregroundColor(.blue)
                         .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.blue, lineWidth: 3)
+                        .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.blue, lineWidth: 3)
                         )
                 }
                 .disabled(self.name.isEmpty)

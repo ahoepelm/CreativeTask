@@ -24,9 +24,32 @@ struct TaskRowView: View {
     }
     
     private var content: some View {
+        
         VStack(alignment: .leading) {
-            Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
             
+            // The repeated code is not desireable, but dealing with it for now
+            if task.priority == "low" {
+                
+                Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
+                    .foregroundColor(Color.green)
+                
+            } else if task.priority == "medium" {
+                
+                Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
+                    .foregroundColor(Color.orange)
+                
+            } else if task.priority == "high" {
+                
+                Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
+                    .foregroundColor(Color.red)
+                
+            } else {
+                
+                Text("\(task.name ?? "None")  - Due \(task.date ?? Date(), formatter: taskDateFormatter)")
+                    .foregroundColor(task.priority == "low" ? Color.green : Color.black)
+
+            }
+                        
             if isExpanded {
                 
                 VStack(alignment: .leading) {
@@ -94,7 +117,7 @@ struct TaskRowView: View {
 
 private let taskDateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "MMM dd yyyy"
+    formatter.dateFormat = "MM/dd/yyyy"
     return formatter
 }()
 

@@ -12,7 +12,6 @@ struct CompletedTaskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Task.name, ascending: true)],
-        //predicate: NSPredicate(format: "completed != %@", "true"),
         predicate: NSPredicate(format: "completed == true"),
         animation: .default)
     private var tasks: FetchedResults<Task>
@@ -63,12 +62,6 @@ struct CompletedTaskView: View {
     }
 
 }
-
-private let taskDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMM dd, HH:MM a"
-    return formatter
-}()
 
 struct CompletedTaskView_Previews: PreviewProvider {
     static var previews: some View {
